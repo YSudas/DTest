@@ -30,7 +30,27 @@ Changing Language on the Special Offers Page
     END
     [Teardown]    Close Browser
 
+Calais - Dover
+    [Setup]    Open Browser and Maximaze Window
+    Input Text    //input[@id='route_outbound']    Calais Dover
+    Wait Until Element Is Visible    //li[@data-routename='Calais - Dover']    15s
+    Click Element    //li[@data-routename='Calais - Dover']
+    mk.Click Element    //span[text()='How are you travelling?']
+    mk.Click Element    //label[text()='Car']
+    mk.Click Element    //label[text()='Aston Martin']
+    mk.Click Element    //label[text()='DB11']
+    Js Click Element    //button[text()='Done']
+    Js Click Element    //button[@data-orig-txt='Search']
+    Wait Until Element Is Visible    //span[text()='Continue']   20s
+    Click Element    //span[text()='Continue']
+    Wait Until Element Is Visible    //h1[text()='Calais - Dover']   20s
+    [Teardown]    Close Browser
+
 *** Keywords ***
+mk.Click Element
+    [Arguments]    ${xpath}
+    Wait Until Keyword Succeeds    5s    1s     Click Element    ${xpath}
+
 Open Special Offers
     Wait Until Keyword Succeeds    5s    1s     Click Element    //*[@id='main-nav-content']//a[text()='Special offers']
 
@@ -56,11 +76,11 @@ Checking New Url
     Should Be Equal As Strings    ${current_url}    ${new_url}
 
 Language Change
-    Js Click Emenent    //a[@id='lang']
+    Js Click Element    //a[@id='lang']
     Wait Until Element Is Visible    //li[@class='lang open']//a[text()='${new_lang}']    15
     Click Element    //li[@class='lang open']//a[text()='${new_lang}']
 
-Js Click Emenent
+Js Click Element
     [Arguments]    ${xpath}
     Execute JavaScript    document.evaluate("${xpath}", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
     ...    null).snapshotItem(0).click();
