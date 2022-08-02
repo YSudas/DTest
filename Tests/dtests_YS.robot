@@ -77,7 +77,7 @@ Checking New Url
 
 Language Change
     Js Click Element    //a[@id='lang']
-    Wait Until Element Is Visible    //li[@class='lang open']//a[text()='${new_lang}']    15
+    Wait Until Element Is Visible    //li[@class='lang open']//a[text()='${new_lang}']    15s
     Click Element    //li[@class='lang open']//a[text()='${new_lang}']
 
 Js Click Element
